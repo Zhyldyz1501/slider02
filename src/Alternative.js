@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import data from './data.js'
-import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
-import { FaQuoteRight } from 'react-icons/fa';
-
+import React, { useState, useEffect } from "react";
+import data from "./data.js";
+import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { FaQuoteRight } from "react-icons/fa";
 
 function App() {
-  const [people, setPeople] = useState(data)
-  const [index, setIndex] = useState(0)
+  const [people, setPeople] = useState(data);
+  const [index, setIndex] = useState(0);
 
-
-
-  
   // useEffect(() => {
   //   const lastIndex = people.length - 1;
   //   if (index < 0) {
@@ -21,15 +17,34 @@ function App() {
   //   }
   // }, [index, people])
 
+    // const handleprev = () => {
+    //     setIndex(() => {
+    //         // let index = oldIndex - 1
+    //         if (index < 0) {
+    //             setIndex(people.length - 1)
+    //         }
+    //     })
+    // }
+
+    //   const handlenext = () => {
+    //     setIndex(() => {
+    //         // let index = oldIndex + 1
+    //         if (index > people.length - 1) {
+    //           setIndex(0)
+    //         }
+    //     })
+    // }
+    
+    
   useEffect(() => {
     let slider = setInterval(() => {
-      setIndex(index + 1)
+      setIndex(index + 1);
     }, 3000);
     return () => {
-      clearInterval(slider)
-    }
+      clearInterval(slider);
+    };
   }, [index]);
-  
+
   return (
     <section className="section">
       <div className="title">
@@ -62,10 +77,28 @@ function App() {
             </article>
           );
         })}
-        <button className="prev" onClick={() => setIndex(index - 1)}>
+        <button
+          className="prev"
+          onClick={() => {
+            if (index > 0) {
+              setIndex(index - 1);
+            } else if (index === 0) {
+              setIndex(people.length - 1);
+            }
+          }}
+        >
           <FiChevronLeft />
         </button>
-        <button className="next" onClick={() => setIndex(index + 1)}>
+        <button
+          className="next"
+          onClick={() => {
+            if (index < people.length - 1) {
+              setIndex(index + 1);
+            } else if (index === people.length - 1) {
+              setIndex(0);
+            }
+          }}
+        >
           <FiChevronRight />
         </button>
       </div>
